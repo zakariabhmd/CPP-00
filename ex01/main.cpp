@@ -1,7 +1,7 @@
 #include "contact.hpp"
 #include "phonebook.hpp"
 
-std::string getdata(std::string str)
+std::string get_data(std::string str)
 {
 	std::string line;
 	while(1)
@@ -15,24 +15,25 @@ std::string getdata(std::string str)
 	return(line);
 }
 
-void	get_info(PhoneBook *cla, int i)
+void	get_info(PhoneBook *classe, int i)
 {
-	t_all info;
+	t_all infor;
 
-	info.first_name = getdata("First Name : ");
-	info.last_name = getdata("Last Name : ");
-	info.phone_number = getdata("Phone Number : ");
-	info.darkest_secret = getdata("Darkest Secret : ");
-	info.nick_name = getdata("Nick Name : ");
-	cla->set_contact_info(i, &info);
+	infor.first_name = get_data("First Name : ");
+	infor.last_name = get_data("Last Name : ");
+	infor.phone_number = get_data("Phone Number : ");
+	infor.darkest_secret = get_data("Darkest Secret : ");
+	infor.nick_name = get_data("Nick Name : ");
+	classe->set_contact(i, &infor);
 }
 
-void    print_10in_SEARCH(std::string str)
+void    print_SEARCH(std::string str)
 {
     int    i;
-    int len = str.length();
+    int len;
 
     i = 0;
+	len = str.length();
     std::cout <<"|";
     if (str.length() < 10)
     {
@@ -50,38 +51,40 @@ void    print_10in_SEARCH(std::string str)
     else
         std::cout << str[i++];
 }
-int	check_index(int a)
+int	check_idx(int a)
 {
 	if (a >= 0 && a < 8)
 		return 1;
 	return 0;
-	
+
 }
 
-void	SEARCH(PhoneBook *cla)
+void	set_search(PhoneBook *classe)
 {
-	int i = 0;
+	int i;
 	t_all all;
-	bool contactExists = false;
+	bool contactExists;
 
+	i = 0;
+	contactExists = false;
 	while (i < 8)
     {
-        all = cla->print_all_contacts(i);
+        all = classe->print_contacts(i);
         if (!all.first_name.empty())
         {
 			if (i == 0)
 			{
-				std::cout << "********************************************"<< std::endl;
+				std::cout << "_____________________________________________"<< std::endl;
 				std::cout << "|  index   | firstname| lastname | nickname |" << std::endl;
-				std::cout << "********************************************"<< std::endl;
+				std::cout << "_____________________________________________"<< std::endl;
 			}
             contactExists = true;
             std::cout << "|" << std::setw(10) << i;
-			print_10in_SEARCH(all.first_name);
-			print_10in_SEARCH(all.last_name);
-			print_10in_SEARCH(all.nick_name);
+			print_SEARCH(all.first_name);
+			print_SEARCH(all.last_name);
+			print_SEARCH(all.nick_name);
             std::cout << "|" << std::endl;
-			std::cout << "********************************************"<< std::endl;
+			std::cout << "__________________________________________________"<< std::endl;
         }
         i++;
     }
@@ -103,9 +106,9 @@ void	SEARCH(PhoneBook *cla)
 	else
   		inputIndex = s[0] - 48;
 
-	if (check_index(inputIndex) == 1)
+	if (check_idx(inputIndex) == 1)
     {
-        t_all selectedContact = cla->print_all_contacts(inputIndex);
+        t_all selectedContact = classe->print_contacts(inputIndex);
         std::cout << "Contact information:" << std::endl;
         std::cout << "First Name: " << selectedContact.first_name << std::endl;
         std::cout << "Last Name: "<< selectedContact.last_name << std::endl;
@@ -123,7 +126,7 @@ void	SEARCH(PhoneBook *cla)
 int main()
 {
 	std:: string line;
-	PhoneBook	cla;
+	PhoneBook	classe;
 	int i = 0;
 	while (1)
 	{
@@ -132,15 +135,15 @@ int main()
 			return 0;
 		if (line == "ADD")
 		{
-			get_info(&cla, i);
+			get_info(&classe, i);
 			i++;
 			if (i == 8)
-				i = 0; 
+				i = 0;
 		}
 		else if (line == "SEARCH")
-			SEARCH(&cla);
+			set_search(&classe);
 		else if (line == "EXIT")
 			break;
-		
+
 	}
 }
