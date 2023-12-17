@@ -1,7 +1,7 @@
 #include "contact.hpp"
 #include "phonebook.hpp"
 
-std::string get_data(std::string str)
+std::string getdata(std::string str)
 {
 	std::string line;
 	while(1)
@@ -19,11 +19,11 @@ void	get_info(PhoneBook *classe, int i)
 {
 	t_all infor;
 
-	infor.first_name = get_data("First Name : ");
-	infor.last_name = get_data("Last Name : ");
-	infor.phone_number = get_data("Phone Number : ");
-	infor.darkest_secret = get_data("Darkest Secret : ");
-	infor.nick_name = get_data("Nick Name : ");
+	infor.first_name = getdata("First Name : ");
+	infor.last_name = getdata("Last Name : ");
+	infor.phone_number = getdata("Phone Number : ");
+	infor.darkest_secret = getdata("Darkest Secret : ");
+	infor.nick_name = getdata("Nick Name : ");
 	classe->set_contact(i, &infor);
 }
 
@@ -119,7 +119,7 @@ void	set_search(PhoneBook *classe)
     }
     else
     {
-        std::cout << "Invalid index. Please enter a valid index." << std::endl;
+        std::cout << "Please enter a valid index." << std::endl;
     }
 }
 
